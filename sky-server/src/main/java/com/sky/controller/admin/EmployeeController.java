@@ -26,7 +26,7 @@ import java.util.Map;
 @Slf4j
 public class EmployeeController {
 
-    @Autowired
+    @AutoWired
     private EmployeeService employeeService;
     @Autowired
     private JwtProperties jwtProperties;
