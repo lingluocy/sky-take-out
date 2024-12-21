@@ -11,6 +11,17 @@
         VALUES ( #{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}
                , #{createTime}, #{updateTime}, #{createUser}, #{updateUser});
     </insert>
-    
+
+    <!--    分页查询-->
+    <select id="page" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
 
 </mapper>
