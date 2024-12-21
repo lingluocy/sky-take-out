@@ -1,5 +1,6 @@
 package com.sky.context;
 
+//ThreadLocal的包装类,用来获取当前线程的一些值
 public class BaseContext {
 
     public static ThreadLocal<Long> threadLocal = new ThreadLocal<>();
