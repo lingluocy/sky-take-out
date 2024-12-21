@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -12,7 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +60,15 @@ public class EmployeeController {
     @PostMapping("/logout")
     @ApiOperation("员工登出")
     public Result<String> logout() {
+	log.info("员工登出");
+	return Result.success();
+    }
+
+    @PostMapping
+    @ApiOperation("添加员工")
+    public Result addEmp(@RequestBody EmployeeDTO employeeDTO) {
+	log.info("添加员工:{}", employeeDTO);
+	employeeService.addEmp(employeeDTO);
 	return Result.success();
     }
 
