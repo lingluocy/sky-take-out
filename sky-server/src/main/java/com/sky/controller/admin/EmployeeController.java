@@ -73,7 +73,8 @@ public class EmployeeController {
     
     @GetMapping("/{id}")
     @ApiOperation("根据id查询员工")
-    public Result<Employee> selectById(@PathVariable String id){
+    public Result<Employee> selectById(@PathVariable String id)
+    {
 	log.info("根据id查询员工:{}",id);
 	Employee emp = employeeService.getById(id);
 	return Result.success(emp);
