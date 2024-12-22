@@ -15,7 +15,11 @@ public interface EmployeeService {
     //添加员工
     void addEmp(EmployeeDTO employeeDTO);
 
-    Employee selectById(String id);
+    Employee getById(String id);
 
     PageResult page(EmployeePageQueryDTO employeePageQueryDTO);
+
+    void startOrStop(Integer status, Long id);
+
+    void updateEmp(EmployeeDTO employeeDTO);
 }

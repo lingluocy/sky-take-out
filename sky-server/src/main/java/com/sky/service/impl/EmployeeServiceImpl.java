@@ -86,21 +86,47 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //根据id查询员工
     @Override
-    public Employee selectById(String id) {
-	return employeeMapper.selectById(id);
+    public Employee getById(String id) {
+	return employeeMapper.getById(id);
     }
 
     //员工分页查询 
     @Override
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
 	//使用pagehelper 进行分页查询
-	PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
-	Page<Employee> page =  employeeMapper.page(employeePageQueryDTO);
-	
+	PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+	Page<Employee> page = employeeMapper.page(employeePageQueryDTO);
+
 	long total = page.getTotal();
 	List<Employee> list = page.getResult();
-	
-	return new PageResult(total,list);
+
+	return new PageResult(total, list);
+    }
+
+    //启用禁用员工
+    @Override
+    public void startOrStop(Integer status, Long id) {
+	Employee employee = Employee.builder()
+		.id(id)
+		.status(status)
+		.updateTime(LocalDateTime.now())
+		.updateUser(BaseContext.getCurrentId())
+		.build();
+
+	employeeMapper.update(employee);
+    }
+
+    //修改员工信息
+    @Override
+    public void updateEmp(EmployeeDTO employeeDTO) {
+	Employee employee = Employee.builder()
+		.updateTime(LocalDateTime.now())
+		.updateUser(BaseContext.getCurrentId())
+		.build();
+
+	BeanUtils.copyProperties(employeeDTO, employee);
+
+	employeeMapper.update(employee);
     }
 
 }

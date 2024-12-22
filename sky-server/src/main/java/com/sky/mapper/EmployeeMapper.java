@@ -18,8 +18,11 @@ public interface EmployeeMapper {
 
     //根据id查询员工
     @Select("select * from employee where id = #{id}")
-     Employee selectById(String id);
+     Employee getById(String id);
 
     //员工分页查询
     Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
+
+    //更新员工信息
+    void update(Employee employee);
 }
