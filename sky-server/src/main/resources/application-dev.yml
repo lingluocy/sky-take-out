@@ -1,3 +1,4 @@
+#file: noinspection SpellCheckingInspection
 sky:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -6,3 +7,9 @@ sky:
     database: sky_take_out
     username: root
     password: 050910
+    
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAI5t6APxf8HLpuovcMFJpi
+    access-key-secret: tvkm5z76w8Y08nB5XHkjXGcJZtLZL8
+    bucket-name: sky-take-out-lingluocy
