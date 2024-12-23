@@ -9,4 +9,10 @@ public interface DishService {
     void addWithFlavor(DishDTO dishDTO);
 
     PageResult page(DishPageQueryDTO queryDTO);
+    
+    void updateStatus(Integer status, Long id);
+
+    void update(DishDTO dishDTO);
+
+    DishVO getById(Long id);
 }
