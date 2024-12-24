@@ -16,4 +16,6 @@ public interface DishFlavorMapper {
 
     @Select("select * from dish_flavor")
     List<DishFlavor> getById(Long id);
+
+    void deleteBatch(Long[] ids);
 }

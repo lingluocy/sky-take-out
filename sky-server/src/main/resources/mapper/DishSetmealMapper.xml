@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.DishSetmealMapper">
+
+
+    <insert id="addDishSetmeal">
+        insert into setmeal_dish (setmeal_id, dish_id, name, price, copies)
+        values <foreach collection="setmealDishes" separator="," item="s">
+           (#{s.setmealId}, #{s.dishId}, #{s.name}, #{s.price}, #{s.copies})
+    </foreach>
+    </insert>
+</mapper>

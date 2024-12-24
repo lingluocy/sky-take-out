@@ -22,4 +22,11 @@
         </set>
         where dish_id = #{dishId}
     </update>
+    
+    <delete id="deleteBatch">
+        delete from dish_flavor where dish_id in
+        <foreach collection="ids" separator="," open="(" close=")" item="dishId">
+            #{dishId}
+        </foreach>
+    </delete>
 </mapper>

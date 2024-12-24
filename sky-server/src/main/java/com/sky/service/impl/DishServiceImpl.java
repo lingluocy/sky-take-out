@@ -2,12 +2,15 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.DishSetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -26,6 +29,9 @@ public class DishServiceImpl implements DishService {
     DishMapper dishMapper;
     @Autowired
     DishFlavorMapper dishFlavorMapper;
+
+    @Autowired
+    DishSetmealMapper dishSetmealMapper;
 
     @Override
     @Transactional
@@ -87,5 +93,27 @@ public class DishServiceImpl implements DishService {
 	dishVO.setFlavors(dishFlavor);
 
 	return dishVO;
+    }
+
+    @Override
+    @Transactional
+    public void deleteBatch(Long[] ids) {
+	for (Long dishId : ids) {
+	    if (dishMapper.getById(dishId).getStatus() == 1) {
+		throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+	    }
+
+	    if (dishSetmealMapper.select(dishId) > 0) {
+		throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+	    }
+	}
+
+	dishMapper.deleteBatch(ids);
+	dishFlavorMapper.deleteBatch(ids);
+    }
+
+    @Override
+    public List<Dish> list(Long categoryId) {
+	return dishMapper.list(categoryId);
     }
 }

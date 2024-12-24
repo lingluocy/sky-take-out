@@ -36,6 +36,13 @@
         </set>
         WHERE id = #{id};
     </update>
+    
+    <delete id="deleteBatch">
+        delete from dish where id in
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}          
+        </foreach>
+    </delete>
 
 
     <select id="page" resultType="com.sky.vo.DishVO">
@@ -53,5 +60,9 @@
             </if>
         </where>
         order by d.category_Id
+    </select>
+    
+    <select id="list" resultType="com.sky.entity.Dish">
+        select * from dish where category_id = #{categoryId};
     </select>
 </mapper>
